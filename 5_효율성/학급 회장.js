@@ -1,4 +1,4 @@
-function solution(s) {
+function solutionB(s) {
   let answer;
   let sH = new Map();
   for (let x of s) {
@@ -15,5 +15,18 @@ function solution(s) {
   return answer;
 }
 
+function solutionA(s) {
+  let answer;
+  let result = new Map();
+
+  [...s].forEach((v) => {
+    result.set(v, (result.get(v) || 0) + 1);
+  });
+
+  answer = [...result.entries()].reduce((a, b) => (a[1] > b[1] ? a : b), [])[0];
+  return answer;
+}
+
 let str = "BACBACCACCBDEDE";
-console.log(solution(str));
+console.log("solutionB :", solutionB(str));
+console.log("solutionA :", solutionA(str));
