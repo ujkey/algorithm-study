@@ -1,4 +1,6 @@
-// 음료수 얼려 먹기
+// DFS > 음료수 얼려 먹기
+// https://www.youtube.com/watch?v=7C9RgOcvkvo
+// resolved
 
 const filePath = process.platform === "linux" ? "/dev/stdin" : "./example.txt";
 const resource = require("fs")
