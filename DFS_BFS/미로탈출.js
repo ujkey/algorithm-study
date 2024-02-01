@@ -1,6 +1,6 @@
 // BFS > 미로 탈출
 // https://www.youtube.com/watch?v=7C9RgOcvkvo
-// not resolved yet
+// resolved
 
 const filePath = process.platform === "linux" ? "/dev/stdin" : "./example.txt";
 const resource = require("fs")
@@ -22,7 +22,7 @@ function solution(N, M, maze) {
   const dx = [-1, 1, 0, 0];
   const dy = [0, 0, -1, 1];
 
-  queue.push([x, y]); // 시작점 좌표를 큐에 삽입
+  queue.push([x, y]); // 시작 좌표를 큐에 삽입
 
   while (queue.length) {
     const [x, y] = queue.shift(); // 현재 좌표
@@ -30,15 +30,14 @@ function solution(N, M, maze) {
     for (let i = 0; i < 4; i++) {
       const nx = x + dx[i]; // 다음 x 좌표
       const ny = y + dy[i]; // 다음 y 좌표
-      // console.log(nx, ny);
 
-      // 범위를 벗어난 경우
+      // 1. 범위를 벗어난 경우
       if (nx < 0 || ny < 0 || nx >= N || ny >= M) continue;
-      // 장애물인 경우(괴물이 있는 경우, 0)
+      // 2. 장애물인 경우(괴물이 있는 경우, 0)
       if (maze[nx][ny] === 0) continue;
-      // 열린 공간인 경우(괴물이 없는 경우, 1)
-      if (maze[nx][ny] !== 0) {
-        console.log("fsdfsd", nx, ny, maze[nx][ny]);
+
+      // 3. 열린 공간인 경우(괴물이 없는 경우, 1)
+      if (maze[nx][ny] === 1) {
         maze[nx][ny] = maze[x][y] + 1; // 이동한 칸의 개수를 이전 칸의 개수 + 1로 설정
         queue.push([nx, ny]); // 다음 좌표를 큐에 삽입
       }
@@ -50,7 +49,6 @@ function solution(N, M, maze) {
 
 solution(N, M, maze);
 
-// 왜 10이 안나오고 0이 나오는가?
 // 1. queue에 [0, 0]을 넣고 시작 (queue.push([x, y]))
 // 2. [0, 0]을 shift하고, 상하좌우 좌표를 구함 (const nx = x + dx[i], const ny = y + dy[i])
 // 3. 좌표가 범위를 벗어나지 않고, 벽이 아니고, 이동할 수 있는 경우 (if (nx < 0 || ny < 0 || nx >= N || ny >= M) continue;)
