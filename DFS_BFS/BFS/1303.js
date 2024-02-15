@@ -1,6 +1,6 @@
 // 1303_전쟁 - 전투
 // https://www.acmicpc.net/problem/1303
-// not resolved yet
+// resolved > 12584KB, 200ms
 
 const filePath = process.platform === "linux" ? "/dev/stdin" : "./example.txt";
 const resource = require("fs")
@@ -8,20 +8,18 @@ const resource = require("fs")
   .trim()
   .split("\n");
 
-const [N, M] = resource[0].split(" ").map(Number);
+const [M, N] = resource[0].split(" ").map(Number); // M: 세로, N: 가로
 const colors = resource.slice(1).map((v) => v.split(""));
-
 const dx = [0, 0, 1, -1];
 const dy = [1, -1, 0, 0];
 
 // console.log(N, M, colors);
 
-function solution(N, M, colors) {
-  let [white, blue] = [0, 0]; // W 병사의 위력, B 병사의 위력
+function solution() {
+  let [white, blue] = [0, 0]; // A 우리 병사의 위력, B 적국 병사의 위력
 
   // 현재 좌표가 범위 내에 있는지 확인
   const isValid = (x, y) => x >= 0 && x < N && y >= 0 && y < M;
-  //const visited = Array.from({ length: N }, () => Array(M).fill(false));
 
   function BFS(x, y) {
     let count = 0; // 같은 색깔의 병사 수
@@ -31,7 +29,7 @@ function solution(N, M, colors) {
 
     while (queue.length) {
       const [x, y] = queue.shift();
-      count++;
+      count++; // 방문한 곳의 수 증가
       //   console.log(count);
 
       for (let i = 0; i < 4; i++) {
@@ -39,7 +37,7 @@ function solution(N, M, colors) {
 
         if (isValid(nx, ny) && colors[nx][ny] === curColor) {
           colors[nx][ny] = 0; // 방문한 곳은 0으로 변경
-          queue.push([nx, ny]); // 방문한 곳은 queue에 추가
+          queue.push([nx, ny]); // 방문한 곳은 queue에 추가 -> 다음 탐색
         }
       }
     }
@@ -61,4 +59,4 @@ function solution(N, M, colors) {
   console.log(white, blue);
 }
 
-solution(N, M, colors);
+solution();
